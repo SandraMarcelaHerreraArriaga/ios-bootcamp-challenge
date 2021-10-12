@@ -152,7 +152,7 @@ class DetailViewController: UIViewController {
         imageView.widthAnchor.constraint(equalToConstant: 200).isActive = true
     }
 
-    private func buildTypes(_ types: [String]) {
+    private func buildTypes(_ types: [Types]) {
         types.forEach { type in
             let padding = 20.0
             let label = UILabel()
@@ -160,7 +160,7 @@ class DetailViewController: UIViewController {
             label.font = UIFont.boldSystemFont(ofSize: 17)
             label.textColor = .white
             label.translatesAutoresizingMaskIntoConstraints = false
-            label.text = type.capitalized
+            label.text = type.type.name.capitalized
             label.backgroundColor = .white.withAlphaComponent(0.30)
             label.layer.cornerRadius = 7.0
             label.layer.masksToBounds = true

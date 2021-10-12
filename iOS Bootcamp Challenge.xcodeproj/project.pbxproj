@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3756A3272715F6B700F48C35 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756A3262715F6B700F48C35 /* Ability.swift */; };
+		3756A3292715FB7100F48C35 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756A3282715FB7100F48C35 /* Type.swift */; };
 		3C56346D270273F700EB996C /* PokemonColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C56346C270273F700EB996C /* PokemonColor.swift */; };
 		3C563471270397F300EB996C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C563470270397F300EB996C /* CardView.swift */; };
 		3C5634732703981E00EB996C /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5634722703981E00EB996C /* ItemView.swift */; };
@@ -55,6 +56,7 @@
 
 /* Begin PBXFileReference section */
 		3756A3262715F6B700F48C35 /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
+		3756A3282715FB7100F48C35 /* Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 		3C56346C270273F700EB996C /* PokemonColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonColor.swift; sourceTree = "<group>"; };
 		3C563470270397F300EB996C /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3C5634722703981E00EB996C /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				3C5634742703A68600EB996C /* Item.swift */,
 				3C5634762703B4A500EB996C /* Card.swift */,
 				3756A3262715F6B700F48C35 /* Ability.swift */,
+				3756A3282715FB7100F48C35 /* Type.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				3C56346D270273F700EB996C /* PokemonColor.swift in Sources */,
 				3C5634732703981E00EB996C /* ItemView.swift in Sources */,
 				3C56348027041BBB00EB996C /* UserDefaults+CustomKeys.swift in Sources */,
+				3756A3292715FB7100F48C35 /* Type.swift in Sources */,
 				C38493B42704A85E00386A1B /* SearchBar.swift in Sources */,
 				C36BFB5A2700DCCE00F8CCAC /* SceneDelegate.swift in Sources */,
 				C36BFB8D2700E6AE00F8CCAC /* ListViewController.swift in Sources */,

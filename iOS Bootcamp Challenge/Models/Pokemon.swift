@@ -28,12 +28,15 @@ enum PokemonType: String, Decodable, CaseIterable, Identifiable {
 }
 
 struct Pokemon: Decodable, Equatable {
+    static func == (lhs: Pokemon, rhs: Pokemon) -> Bool {
+        lhs.id == rhs.id
+    }
 
     let id: Int
     let name: String
     let image: String?
-    let types: [String]?
-    let abilities: [String]?
+    let types: [Types]?
+    let abilities: [Abilities]?
     let weight: Float
     let baseExperience: Int
 
@@ -62,10 +65,8 @@ struct Pokemon: Decodable, Equatable {
         let officialArtWork = try other.nestedContainer(keyedBy: CodingKeys.self, forKey: .officialArtwork)
         self.image = try? officialArtWork.decode(String.self, forKey: .frontDefault)
 
-        // TODO: Decode list of types & abilities
-
-        self.types = []
-        self.abilities = []
+        self.types = try container.decode([Types].self, forKey: .types)
+        self.abilities = try container.decode([Abilities].self, forKey: .abilities)
 
         self.weight = try container.decode(Float.self, forKey: .weight)
         self.baseExperience = try container.decode(Int.self, forKey: .baseExperience)
@@ -81,13 +82,13 @@ extension Pokemon {
 
     func primaryType() -> String? {
         guard let primary = types?.first else { return nil }
-        return primary.capitalized
+        return primary.type.name.capitalized
     }
 
     func secondaryType() -> String? {
         let index = 1
         guard index < types?.count ?? 0 else { return nil }
-        return types?[index].capitalized
+        return types?[index].type.name.capitalized
     }
 
 }

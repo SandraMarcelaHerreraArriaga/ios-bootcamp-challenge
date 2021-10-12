@@ -75,9 +75,10 @@ class DetailViewController: UIViewController {
         guard let pokemon = pokemon else { return items }
 
         // abilities
+        var description: String?
         if let abilities = pokemon.abilities {
             let title = "Abilities"
-            let description = abilities.joined(separator: "\n")
+            guard let description = abilities.first?.ability.name else { return [] }
             let item = Item(title: title, description: description)
             items.append(item)
         }

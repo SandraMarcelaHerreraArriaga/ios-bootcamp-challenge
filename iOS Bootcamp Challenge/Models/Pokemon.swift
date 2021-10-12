@@ -28,12 +28,15 @@ enum PokemonType: String, Decodable, CaseIterable, Identifiable {
 }
 
 struct Pokemon: Decodable, Equatable {
+    static func == (lhs: Pokemon, rhs: Pokemon) -> Bool {
+        lhs.id == rhs.id
+    }
 
     let id: Int
     let name: String
     let image: String?
     let types: [String]?
-    let abilities: [String]?
+    let abilities: [Abilities]?
     let weight: Float
     let baseExperience: Int
 
@@ -62,10 +65,9 @@ struct Pokemon: Decodable, Equatable {
         let officialArtWork = try other.nestedContainer(keyedBy: CodingKeys.self, forKey: .officialArtwork)
         self.image = try? officialArtWork.decode(String.self, forKey: .frontDefault)
 
-        // TODO: Decode list of types & abilities
-
+        // TODO: Decode list of types
         self.types = []
-        self.abilities = []
+        self.abilities = try container.decode([Abilities].self, forKey: .abilities)
 
         self.weight = try container.decode(Float.self, forKey: .weight)
         self.baseExperience = try container.decode(Int.self, forKey: .baseExperience)

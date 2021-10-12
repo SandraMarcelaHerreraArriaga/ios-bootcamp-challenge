@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3756A3272715F6B700F48C35 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3756A3262715F6B700F48C35 /* Ability.swift */; };
 		3C56346D270273F700EB996C /* PokemonColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C56346C270273F700EB996C /* PokemonColor.swift */; };
 		3C563471270397F300EB996C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C563470270397F300EB996C /* CardView.swift */; };
 		3C5634732703981E00EB996C /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5634722703981E00EB996C /* ItemView.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3756A3262715F6B700F48C35 /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
 		3C56346C270273F700EB996C /* PokemonColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonColor.swift; sourceTree = "<group>"; };
 		3C563470270397F300EB996C /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3C5634722703981E00EB996C /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				C36BFB972700F07900F8CCAC /* Pokemon.swift */,
 				3C5634742703A68600EB996C /* Item.swift */,
 				3C5634762703B4A500EB996C /* Card.swift */,
+				3756A3262715F6B700F48C35 /* Ability.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3756A3272715F6B700F48C35 /* Ability.swift in Sources */,
 				C36BFB9A2700F1CE00F8CCAC /* DetailViewController.swift in Sources */,
 				C36BFB922700ED8400F8CCAC /* PokeCell.swift in Sources */,
 				C36BFB982700F07900F8CCAC /* Pokemon.swift in Sources */,

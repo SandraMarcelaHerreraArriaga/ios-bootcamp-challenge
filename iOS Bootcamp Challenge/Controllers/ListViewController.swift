@@ -8,7 +8,7 @@
 import UIKit
 
 class ListViewController: UICollectionViewController {
-
+    private var group = DispatchGroup()
     private var pokemons: [Pokemon] = []
     private var resultPokemons: [Pokemon] = []
 
@@ -113,18 +113,25 @@ class ListViewController: UICollectionViewController {
         var pokemons: [Pokemon] = []
 
         // TODO: Wait for all requests to finish before updating the collection view
-
+        self.group.enter()
         PokeAPI.shared.get(url: "pokemon?limit=30", onCompletion: { (list: PokemonList?, _) in
             guard let list = list else { return }
+            self.group.leave()
             list.results.forEach { result in
+                self.group.enter()
                 PokeAPI.shared.get(url: "/pokemon/\(result.id)/", onCompletion: { (pokemon: Pokemon?, _) in
                     guard let pokemon = pokemon else { return }
                     pokemons.append(pokemon)
                     self.pokemons = pokemons
                     self.didRefresh()
+                    self.group.leave()
                 })
             }
         })
+        group.notify(queue: .main) {
+            self.pokemons = pokemons
+            self.didRefresh()
+        }
     }
 
     private func didRefresh() {

@@ -14,19 +14,19 @@ class ListViewController: UICollectionViewController, UISearchBarDelegate, UISea
     private var resultPokemons: [Pokemon] = []
 
     // TODO: Use UserDefaults to pre-load the latest search at start
+    private var userDefaults = UserDefaults.standard
     private var latestSearch: String?
 
     lazy private var searchController: SearchBar = {
         let searchController = SearchBar("Search a pokemon", delegate: nil)
-        searchController.text = latestSearch
         searchController.searchResultsUpdater = self
         searchController.showsCancelButton = !searchController.isSearchBarEmpty
+        searchController.text = userDefaults.string(forKey: "latestSearch")
         return searchController
     }()
 
     private var isFirstLauch: Bool = true
 
-    // TODO: Add a loading indicator when the app first launches and has no pokemons
     private var uiActivityIndicator = UIActivityIndicatorView(style: .medium)
     private var shouldShowLoader: Bool = true
 
@@ -58,6 +58,7 @@ class ListViewController: UICollectionViewController, UISearchBarDelegate, UISea
         definesPresentationContext = true
 
         refresh()
+
     }
     
     private func checkIfShowDisplayLoaderIndicator(){
@@ -104,6 +105,8 @@ class ListViewController: UICollectionViewController, UISearchBarDelegate, UISea
     func updateSearchResults(for searchController: UISearchController) {
        guard  let searchBarText = searchController.searchBar.text else { return }
         filterContentForSearchText(searchBarText)
+        userDefaults.setValue(searchBarText, forKey: "latestSearch")
+
     }
 
     // MARK: - UICollectionViewDataSource

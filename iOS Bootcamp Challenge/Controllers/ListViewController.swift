@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ListViewController: UICollectionViewController {
+class ListViewController: UICollectionViewController, UISearchBarDelegate, UISearchResultsUpdating {
+    
     private var group = DispatchGroup()
     private var pokemons: [Pokemon] = []
     private var resultPokemons: [Pokemon] = []
@@ -19,6 +20,7 @@ class ListViewController: UICollectionViewController {
     lazy private var searchController: SearchBar = {
         let searchController = SearchBar("Search a pokemon", delegate: nil)
         searchController.text = latestSearch
+        searchController.searchResultsUpdater = self
         searchController.showsCancelButton = !searchController.isSearchBarEmpty
         return searchController
     }()
@@ -85,7 +87,10 @@ class ListViewController: UICollectionViewController {
         collectionView.reloadData()
     }
 
-    // TODO: Implement the SearchBar
+    func updateSearchResults(for searchController: UISearchController) {
+       guard  let searchBarText = searchController.searchBar.text else { return }
+        filterContentForSearchText(searchBarText)
+    }
 
     // MARK: - UICollectionViewDataSource
 

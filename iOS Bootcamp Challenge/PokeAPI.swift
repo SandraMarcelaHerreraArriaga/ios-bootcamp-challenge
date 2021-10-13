@@ -12,7 +12,6 @@ class PokeAPI {
     static let shared = PokeAPI()
     static let baseURL = "https://pokeapi.co/api/v2/"
 
-    // TODO: Implements generics to merge this methods into one
 
     @discardableResult
     func get<T:Decodable>(url: String, onCompletion: @escaping(T?, Error?) -> Void) -> URLSessionDataTask? {

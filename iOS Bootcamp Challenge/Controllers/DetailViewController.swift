@@ -54,7 +54,16 @@ class DetailViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
+    
+    lazy private var abilitiesStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.spacing = 5
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     lazy private var imageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +72,7 @@ class DetailViewController: UIViewController {
     }()
 
     lazy private var cardView: CardView = {
-        let title = "About"
+        let title = "Abilities"
         let cardView = CardView(card: Card(title: title, items: items))
         cardView.translatesAutoresizingMaskIntoConstraints = false
         return cardView
@@ -118,6 +127,9 @@ class DetailViewController: UIViewController {
 
         guard let types = pokemon.types else { return }
         buildTypes(types)
+        
+        guard let abilities = pokemon.abilities else { return }
+        buildAbilities(abilities)
     }
 
     private func setupUI() {
@@ -144,12 +156,20 @@ class DetailViewController: UIViewController {
         cardView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         cardView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         cardView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        view.addSubview(abilitiesStackView)
+        abilitiesStackView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: margin * 3).isActive = true
+        abilitiesStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: margin * 1.5).isActive = true
+        abilitiesStackView.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.9).isActive = true
 
         view.addSubview(imageView)
-        imageView.bottomAnchor.constraint(equalTo: cardView.topAnchor, constant: margin * 2).isActive = true
-        imageView.centerXAnchor.constraint(equalTo: cardView.centerXAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: cardView.topAnchor, constant: margin * 3).isActive = true
+        imageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: margin * 9).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 130).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        
+        
+        
     }
 
     private func buildTypes(_ types: [Types]) {
@@ -167,6 +187,24 @@ class DetailViewController: UIViewController {
             let paddedWidth = label.intrinsicContentSize.width + CGFloat(padding)
             label.widthAnchor.constraint(equalToConstant: paddedWidth).isActive = true
             typesStackView.addArrangedSubview(label)
+        }
+    }
+    
+    private func buildAbilities(_ abilities: [Abilities]) {
+        abilities.forEach { ability in
+            let padding = 20.0
+            let label = UILabel()
+            label.textAlignment = .center
+            label.font = UIFont.boldSystemFont(ofSize: 13)
+            label.textColor = .black
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = ability.ability.name
+            label.backgroundColor = .gray.withAlphaComponent(0.30)
+            label.layer.cornerRadius = 7.0
+            label.layer.masksToBounds = true
+            let paddedWidth = label.intrinsicContentSize.width + CGFloat(padding)
+            label.widthAnchor.constraint(equalToConstant: paddedWidth).isActive = true
+            abilitiesStackView.addArrangedSubview(label)
         }
     }
 

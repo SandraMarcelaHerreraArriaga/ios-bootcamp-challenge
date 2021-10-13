@@ -14,7 +14,6 @@ class ListViewController: UICollectionViewController, UISearchBarDelegate, UISea
     private var resultPokemons: [Pokemon] = []
 
     // TODO: Use UserDefaults to pre-load the latest search at start
-
     private var latestSearch: String?
 
     lazy private var searchController: SearchBar = {
@@ -28,12 +27,16 @@ class ListViewController: UICollectionViewController, UISearchBarDelegate, UISea
     private var isFirstLauch: Bool = true
 
     // TODO: Add a loading indicator when the app first launches and has no pokemons
-
+    private var uiActivityIndicator = UIActivityIndicatorView(style: .medium)
     private var shouldShowLoader: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        uiActivityIndicator.center = view.center
+        view.addSubview(uiActivityIndicator)
+        checkIfShowDisplayLoaderIndicator()
+        
         setup()
         setupUI()
     }
@@ -49,12 +52,21 @@ class ListViewController: UICollectionViewController, UISearchBarDelegate, UISea
         navbar.tintColor = .black
         navbar.titleTextAttributes = [.foregroundColor: UIColor.black]
         navbar.prefersLargeTitles = true
-
+        
         // Set up the searchController parameters.
         navigationItem.searchController = searchController
         definesPresentationContext = true
 
         refresh()
+    }
+    
+    private func checkIfShowDisplayLoaderIndicator(){
+        if shouldShowLoader {
+            uiActivityIndicator.startAnimating()
+        }
+        else {
+            uiActivityIndicator.stopAnimating()
+        }
     }
 
     private func setupUI() {
@@ -68,8 +80,10 @@ class ListViewController: UICollectionViewController, UISearchBarDelegate, UISea
         // Set up the refresh control as part of the collection view when it's pulled to refresh.
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        refreshControl.beginRefreshing()
         collectionView.refreshControl = refreshControl
         collectionView.sendSubviewToBack(refreshControl)
+        
     }
 
     // MARK: - UISearchViewController
@@ -102,6 +116,7 @@ class ListViewController: UICollectionViewController, UISearchBarDelegate, UISea
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokeCell.identifier, for: indexPath) as? PokeCell
         else { preconditionFailure("Failed to load collection view cell") }
+        
         cell.pokemon = resultPokemons[indexPath.item]
         return cell
     }
@@ -125,7 +140,6 @@ class ListViewController: UICollectionViewController, UISearchBarDelegate, UISea
 
         var pokemons: [Pokemon] = []
 
-        // TODO: Wait for all requests to finish before updating the collection view
         self.group.enter()
         PokeAPI.shared.get(url: "pokemon?limit=30", onCompletion: { (list: PokemonList?, _) in
             guard let list = list else { return }
@@ -149,7 +163,7 @@ class ListViewController: UICollectionViewController, UISearchBarDelegate, UISea
 
     private func didRefresh() {
         shouldShowLoader = false
-
+        checkIfShowDisplayLoaderIndicator()
         guard
             let collectionView = collectionView,
             let refreshControl = collectionView.refreshControl
